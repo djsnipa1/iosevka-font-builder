@@ -1323,7 +1323,7 @@ env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-ch
 > ALSO: I had to reduce the number of concurrent processes on gitpod. I added this to the command: `--jCmd=<number of processes>`
 >
 > ```bash
-> env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-chad --jCmd=8
+> env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-chad --jCmd=12
 > ```
 >
 > source: [npm only build 6 weights and throw an error · Issue #847 · be5invis/Iosevka](https://github.com/be5invis/Iosevka/issues/847)
