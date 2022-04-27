@@ -1,0 +1,16 @@
+{
+  "name": "iosevka-font-builder",
+  "version": "1.0.0",
+  "description": "build a custom version of Iosevka and patch with Nerd Fonts on gitpod.io",
+  "main": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djsnipa1/iosevka-font-builder"
+  },
+  "author": "Chad Boyce",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djsnipa1/iosevka-font-builder/issues"
+  },
+  "homepage": "https://github.com/djsnipa1/iosevka-font-builder#readme"
+}

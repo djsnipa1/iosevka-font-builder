@@ -1,0 +1,26 @@
+tasks:
+  - before: ./install.sh
+    init: ./test.sh
+    command: open README.md
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+  - port: 3001
+    onOpen: ignore
+
+image:
+  file: .gitpod.dockerfile
+
+vscode:
+  extensions:
+    - gulajavaministudio.mayukaithemevsc
+    - eamodio.gitlens
+    - naumovs.color-highlight
+    - bierner.color-info
+    - anseki.vscode-color
+    - EditorConfig.EditorConfig
+    - dbaeumer.vscode-eslint
+    - christian-kohler.path-intellisense
+    - evgeniypeshkov.syntax-highlighter
+    - asvetliakov.vscode-neovim
