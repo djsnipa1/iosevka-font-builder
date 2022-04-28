@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "installing deps"
-sudo apt install nodejs npm ttfautohint libttfautohint-dev
+sudo apt install -y nodejs npm ttfautohint libttfautohint-dev
 
 echo "installing premake"
 cd /workspace/iosevka-font-builder || exit
