@@ -22,7 +22,7 @@ make config > release_x64
 echo "cloning iosevka repo"
 cd /workspace/iosevka-font-builder || exit
 
-git clone --depth=1 https://github.com/be5invis/Iosevka -o iosevka
+git clone --depth=1 https://github.com/be5invis/Iosevka iosevka
 
 cd iosevka || exit
 npm install
