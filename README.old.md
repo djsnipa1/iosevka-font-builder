@@ -1,38 +1,44 @@
 # Iosevka Font Builder
 
-I have taken most of this from this blog post:
+[Adam Kruszewski blog](https://adam.kruszewski.name/)
 
-> [Step by step guide in compiling a custom Iosevka font on Ubuntu/Debian](https://adam.kruszewski.name/2019-10-27-build-custom-iosevka-font.html)
+# Step by step guide in compiling a custom Iosevka font on Ubuntu/Debian
 
-Thank you for all the hard work done by that author!
+posted on 2019-10-27
 
----
+My [last post](https://adam.kruszewski.name/2017/09/iosevka/) on how to build a custom Iosevka font got completely out of date as
+Iosevka changed the build system and moved away from Makefiles. I thought I’ll
+write an update with additional step-by-step guide on how to make it work on
+more popular GNU/Linux distribution - Ubuntu (it is pretty straightforward on
+Arch or Gentoo as every dependency can be installed by distro’s package/port manager).
 
 ![2019-10-27-iosevka.png](http://adam.kruszewski.name/./content/article_images/2019-10-27-iosevka.png)
 
-## gitpod.io
+_Custom Iosevka font you can have today!_
 
-I have found it easier to use [gitpod.io](https://gitpod.io) for this project than my own local machine. It's a lot faster and I love gitpod anyway!
+---
 
-Just click the button below and this repo will open up in a ready to go workspace.
+~~Through the whole guide I assume we’ll clone most of the repositories used inside `~/Src/opensource/` directory.~~
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/djsnipa1/iosevka-font-builder)
+> _**\* EDIT \***_
+>
+> Just use the main workspace folder in gitpod.io. For example,
+> in this case it is `/workspace/iosevka-font-builder`
 
-## Custom Name: example `iosevka-chad`
+## [Install dependencies](http://adam.kruszewski.name#org9c38113)
 
-Do a <kbd>Ctrl</kbd> + <kbd>F</kbd> or <kbd>⌘</kbd> + <kbd>F</kbd> on Mac and search for `iosevka-chad` in this README. Take note to replace it with whatever name you want so that all the commands match up.
-
-## Install dependencies
-
-There are three major dependencies for building Iosevka, `nodejs`/`npm` and `ttfautohint` are available as binaries in Ubuntu/Debian repositories so it is quite easy to install them running the following from terminal:
+There are three major dependencies for building Iosevka, NodeJS/NPM and
+ttfautohint are available as binaries in Ubuntu/Debian repositories so it is
+quite easy to install them running the following from terminal:
 
 ```bash
 sudo apt install nodejs npm ttfautohint libttfautohint-dev
 ```
 
-## Build and compile `premake5` for `otfcc`
+## [Build and compile premake5 for otfcc](http://adam.kruszewski.name#orgefb1083)
 
-`otfcc` requires `premake5` build system to build and we need to compile it from sources:
+Otfcc requires premake5 build system to build and we need to compile it from
+sources:
 
 ```bash
 cd /workspace/iosevka-font-builder
@@ -42,9 +48,10 @@ cd premake-core
 make -f Bootstrap.mak linux
 ```
 
-## Build `otfcc`
+## [Build otfcc](http://adam.kruszewski.name#org914d7c9)
 
-We’ll not install `premake` system-wide, just execute it from `otfcc`’s source directory and build `otfcc`’s binaries.
+We’ll not install premake system-wide, just execute it from otfcc’s source
+directory and build otfcc’s binaries.
 
 ```bash
 cd /workspace/iosevka-font-builder
@@ -56,7 +63,7 @@ cd build/gmake
 make config > release_x64
 ```
 
-## Clone Iosevka repository
+## [Clone Iosevka repository](http://adam.kruszewski.name#orgadcd2bb)
 
 Now we can finally clone Iosevka’s source repository.
 
@@ -66,9 +73,9 @@ cd /workspace/iosevka-font-builder
 git clone https://github.com/be5invis/Iosevka -o iosevka
 ```
 
-## Install nodeJs dependencies
+## [Install nodeJs dependencies](http://adam.kruszewski.name#org02e47f0)
 
-Node package manager, `npm` will take care of last set of dependencies needed.
+Node package manager will take care of last set of dependencies needed.
 
 ```bash
 cd iosevka
@@ -77,16 +84,14 @@ npm install
 
 ---
 
-## Create a custom build plan for Iosevka font
+## [Create a custom build plan for Iosevka font](http://adam.kruszewski.name#org7e921df)
 
-Now replace the `private-build-plans.toml` file with the contents below inside Iosevka’s source directory. You can tweak look for each of the available options - please refer to [official Iosevka readme](https://github.com/be5invis/Iosevka) to see what options are available. The ones below are what the original author suggested.
+Now create a `private-build-plans.toml` file with the contents below inside Iosevka’s source directory. You can tweak look for each of the available options - please refer to [official Iosevka readme](https://github.com/be5invis/Iosevka) to see what options are available. The ones below are what I’m using and reflect what you could see on the picture at the beginning of this post.
 
-I used this web tool to customize my font: [Iosevka Customizer](https://typeof.net/Iosevka/customizer). It gives you similar output to below that you can copy and paste into the `private-build-plans.toml` file.
-
-### Original file: `private-build-plans.toml`
+### `private-build-plans.toml`
 
 ```toml
-[buildPlans.iosevka-chad]
+[buildPlans.iosevka-custom]
 family = "Iosevka Custom"
 design = [
 'extended',
@@ -129,7 +134,7 @@ family = "Iosevka Chad"
 ```
 
 <details>
-  <summary>click to expand entire file</summary>
+  <summary>click to expand whole file</summary>
   
   </br>
 
@@ -206,10 +211,7 @@ inherits = "dlig"
 
 ---
 
-## (optional) Add legacy support for ligatures
-
-> I don't use `emacs` but I did this step anyway...
-> The file is already included in the repo but I'm keeping the file contents below for brevity.
+## [(optional) Add legacy support for ligatures](http://adam.kruszewski.name#org84aef7b)
 
 For use with Emacs. If you use an editor with Open Ligatures support (basically all of them nowadays) or are just not interested in ligatures at all - skip this step.
 If you want legacy ligature support built in simply append lines below to `parameters.toml` in Iosevka’s source code directory (credits goes to [Soham Chowdhury](https://gist.github.com/mrkgnao/49c7480e1df42405a36b7ab09fe87f3d)).
@@ -1308,78 +1310,39 @@ sequence = "<~>"
 
 </details>
 
-## Build the iosevka font
+## [Build the iosevka font](http://adam.kruszewski.name#org05845d4)
 
-Finally we can build the font. Just for the build step run we’ll add `otfcc`’s binary path to the `$PATH` variable, for `npm` to find it. Go grab some coffee as it might take a while.
+Finally we can build the font. Just for the build step run we’ll add otfcc’s
+binary path to the `$PATH` variable, for npm to find it. Go grab some coffee as it might take a while.
 
 ```bash
-env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-chad
+env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-custom
 ```
-
-**IMPORTANT NOTE:**
 
 > I had to install `node lts/fermium` using `nvm` to get the font to build
 
 > ALSO: I had to reduce the number of concurrent processes on gitpod. I added this to the command: `--jCmd=<number of processes>`
 >
 > ```bash
-> env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-chad --jCmd=12
+> env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-custom --jCmd=8
 > ```
 >
 > source: [npm only build 6 weights and throw an error · Issue #847 · be5invis/Iosevka](https://github.com/be5invis/Iosevka/issues/847)
 
-## Patch fonts with Nerd Font symbols
+## [Install the font](http://adam.kruszewski.name#org3c8f24c)
 
-First, clone this repo...
-
-```bash
-cd /workspace/iosevka-font-builder
-
-git clone https://github.com/icy-comet/dockered-nerdfonts-patcher
-```
-
-Copy your new fonts to the `in` directory of this newly cloned repo
+The last step is to install the font, a shortcut from using your desktop’s font
+manager is just to copy the fonts where font-config can find them and invalidate
+its cache.
 
 ```bash
-cp iosevka/dist/iosevka-chad/ttf dockered-nerdfonts-patcher/in
-```
-
-Now all your fonts will be ready for the following `docker` command...
-
-```bash
-cd dockered-nerdfonts-patcher
-docker run -v $(pwd)/in:/in -v $(pwd)/out:/out --name font-patcher icycomet/nerdfonts-patcher --complete --careful
-```
-
-Now you should see some progress bars moving and patching your fonts!
-
-They will be available in the `out` directory.
-
-## Download the font (if using gitpod)
-
-You will now notice a `dist` folder in the `iosevka` directory. Inside that is all your new fonts. Let's `zip` them up and download the `zip` file.
-
-```bash
-zip -r iosevka-chad.zip out
-```
-
-You will now have a `iosevka-chad.zip` file. Right click that and click `Download...` to save the file to your machine.
-
-# Install the font
-
-Unzip the file
-
-```bash
-cd ~/Downloads
-
-unzip iosevka-chad.zip
-```
-
-The last step is to install the font, a shortcut from using your desktop’s font manager is just to copy the fonts where font-config can find them and invalidate its cache.
-
-```bash
-cp out/*.ttf ~/.fonts
+cp build/iosevka-custom/*.ttf ~/.fonts
 fc-cache -f
 ```
 
-If you are using a mac, just copy the fonts to the `~/Library/Fonts` folder.
+That’s all, custom Iosevka build should be available as “Iosevka Custom” now.
+Happy hacking!
+
+About me:
+
+I'm software architect and engineer with 20+ years of experience. Love coding and problem solving. CTO and co-founder of [RevDeBug](https://revdebug.com/).
