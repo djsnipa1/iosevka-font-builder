@@ -1,13 +1,13 @@
 tasks:
-  - before: ./install.sh
-    init: ./test.sh
+  - before: ./test.sh
+    # init: ./test.sh
     command: open README.md
 
-ports:
-  - port: 3000
-    onOpen: open-preview
-  - port: 3001
-    onOpen: ignore
+# ports:
+#   - port: 3000
+#     onOpen: open-preview
+#   - port: 3001
+#     onOpen: ignore
 
 image:
   file: .gitpod.dockerfile

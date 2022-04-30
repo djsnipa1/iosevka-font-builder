@@ -107,9 +107,12 @@ rm -rf ./bin
 echo "chezmoi installed"
 
 # neovim config
+cd ~ || exit
 git clone https://github.com/djsnipa1/dotfiles-chezmoi
-cd ./dotfiles-chezmoi || { echo "Failure"; exit 1; }
-cd ./private_dot_config || { echo "Failure"; exit 1; }
+# cd ./dotfiles-chezmoi || { echo "Failure"; exit 1; }
+# cd ./private_dot_config || { echo "Failure"; exit 1; }
+cd ./dotfiles-chezmoi || exit
+cd ./private_dot_config || exit
 cp -r ./nvim ~/.config
 cp -r ./private_fish ~/.config/fish
 cd ../..

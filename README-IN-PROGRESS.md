@@ -1328,14 +1328,39 @@ env PATH="$PATH:../otfcc/bin/release-x64/" npm run build -- contents::iosevka-ch
 >
 > source: [npm only build 6 weights and throw an error · Issue #847 · be5invis/Iosevka](https://github.com/be5invis/Iosevka/issues/847)
 
+## Patch fonts with Nerd Font symbols
+
+First, clone this repo...
+
+```bash
+cd /workspace/iosevka-font-builder
+
+git clone https://github.com/icy-comet/dockered-nerdfonts-patcher
+```
+
+Copy your new fonts to the `in` directory of this newly cloned repo
+
+```bash
+cp iosevka/dist/iosevka-chad/ttf dockered-nerdfonts-patcher/in
+```
+
+Now all your fonts will be ready for the following `docker` command...
+
+```bash
+cd dockered-nerdfonts-patcher
+docker run -v $(pwd)/in:/in -v $(pwd)/out:/out --name font-patcher icycomet/nerdfonts-patcher --complete --careful
+```
+
+Now you should see some progress bars moving and patching your fonts!
+
+They will be available in the `out` directory.
+
 ## Download the font (if using gitpod)
 
 You will now notice a `dist` folder in the `iosevka` directory. Inside that is all your new fonts. Let's `zip` them up and download the `zip` file.
 
 ```bash
-cd dist
-
-zip -r iosevka-chad.zip iosevka-chad
+zip -r iosevka-chad.zip out
 ```
 
 You will now have a `iosevka-chad.zip` file. Right click that and click `Download...` to save the file to your machine.
@@ -1353,7 +1378,7 @@ unzip iosevka-chad.zip
 The last step is to install the font, a shortcut from using your desktop’s font manager is just to copy the fonts where font-config can find them and invalidate its cache.
 
 ```bash
-cp build/iosevka-chad/*.ttf ~/.fonts
+cp out/*.ttf ~/.fonts
 fc-cache -f
 ```
 
